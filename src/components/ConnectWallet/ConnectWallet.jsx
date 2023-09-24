@@ -2,7 +2,7 @@ import { Button, Container, Dropdown, DropdownButton } from 'react-bootstrap'
 import './connectWallet.scss'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { passAddress } from '../../redux/appSlice'
+import { passAddress, passNetworkName } from '../../redux/appSlice'
 
 //chainlist
 const networks = {
@@ -87,6 +87,7 @@ const ConnectWallet = () => {
 
     async function switchNetwork(network) {
         await changeNetwork({ network, setError })
+        dispatch(passNetworkName(network))
     }
 
     async function connectWallet() {
