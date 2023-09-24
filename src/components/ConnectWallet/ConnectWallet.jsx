@@ -49,10 +49,6 @@ const ConnectWallet = () => {
     const [walletDetected, setWalletDetected] = useState('')
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        requestAccount()
-    }, [])
-
     async function requestAccount() {
         if (window.ethereum) {
             try {
