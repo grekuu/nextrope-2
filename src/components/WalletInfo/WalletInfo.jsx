@@ -10,7 +10,7 @@ const TOKEN_ADDRESS = '0x326C977E6efc84E512bB9C30f76E30c160eD06FB'
 const WalletInfo = () => {
     const address = useSelector(selectAddress)
     const [ether, setEther] = useState(0)
-    const [token, setToken] = useState(0)
+    const [balance, setBalance] = useState(0)
     const [walletAddress, setWalletAddress] = useState(0)
     const ethers = require('ethers')
 
@@ -28,12 +28,12 @@ const WalletInfo = () => {
             const walletAddress = await signer.getAddress()
             setWalletAddress(walletAddress)
 
-            let token
+            let balance
             try {
-                const tokenTokenContract = await new ethers.Contract(TOKEN_ADDRESS, ERC20ABI, provider)
-                token = await tokenTokenContract.balanceOf(walletAddress)
-                token = ethers.utils.formatEther(token, 18)
-                setToken(token)
+                const balanceTokenContract = await new ethers.Contract(TOKEN_ADDRESS, ERC20ABI, provider)
+                balance = await balanceTokenContract.balanceOf(walletAddress)
+                balance = ethers.utils.formatEther(balance, 18)
+                setBalance(balance)
             } catch (error) {
                 console.error('Error fetching TOKEN balance:', error)
             }
@@ -45,7 +45,7 @@ const WalletInfo = () => {
         <Container className="center-container">
             <p>Address: {address}</p>
             <p>Ether balance: {ether}</p>
-            <p>TOKEN balance: {token}</p>
+            <p>TOKEN balance: {balance}</p>
         </Container>
     )
 }
