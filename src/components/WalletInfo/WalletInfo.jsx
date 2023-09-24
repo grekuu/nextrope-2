@@ -5,12 +5,12 @@ import { selectAddress } from '../../redux/appSlice'
 import { useState, useEffect } from 'react'
 
 const ERC20ABI = require('../../abi.json')
-const UNI_TOKEN_ADDRESS = '0xb33EaAd8d922B1083446DC23f610c2567fB5180f'
+const TOKEN_ADDRESS = '0x326C977E6efc84E512bB9C30f76E30c160eD06FB'
 
 const WalletInfo = () => {
     const address = useSelector(selectAddress)
     const [ether, setEther] = useState(0)
-    const [uni, setUni] = useState(0)
+    const [token, setToken] = useState(0)
     const [walletAddress, setWalletAddress] = useState(0)
     const ethers = require('ethers')
 
@@ -28,14 +28,14 @@ const WalletInfo = () => {
             const walletAddress = await signer.getAddress()
             setWalletAddress(walletAddress)
 
-            let uni
+            let token
             try {
-                const uniTokenContract = await new ethers.Contract(UNI_TOKEN_ADDRESS, ERC20ABI, provider)
-                uni = await uniTokenContract.balanceOf(walletAddress)
-                uni = ethers.utils.formatEther(uni, 18)
-                setUni(uni)
+                const tokenTokenContract = await new ethers.Contract(TOKEN_ADDRESS, ERC20ABI, provider)
+                token = await tokenTokenContract.balanceOf(walletAddress)
+                token = ethers.utils.formatEther(token, 18)
+                setToken(token)
             } catch (error) {
-                console.error('Error fetching UNI balance:', error)
+                console.error('Error fetching TOKEN balance:', error)
             }
         }
         onLoad()
@@ -45,7 +45,7 @@ const WalletInfo = () => {
         <Container className="center-container">
             <p>Address: {address}</p>
             <p>Ether balance: {ether}</p>
-            <p>UNI balance: {uni}</p>
+            <p>TOKEN balance: {token}</p>
         </Container>
     )
 }
