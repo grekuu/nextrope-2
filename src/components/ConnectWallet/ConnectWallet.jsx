@@ -1,6 +1,6 @@
 import { Button, Container, Dropdown, DropdownButton } from 'react-bootstrap'
 import './connectWallet.scss'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { passAddress } from '../../redux/appSlice'
 
@@ -49,6 +49,10 @@ const ConnectWallet = () => {
     const [walletDetected, setWalletDetected] = useState('')
     const dispatch = useDispatch()
 
+    useEffect(() => {
+        requestAccount()
+    }, [])
+
     async function requestAccount() {
         if (window.ethereum) {
             try {
@@ -85,9 +89,15 @@ const ConnectWallet = () => {
         await changeNetwork({ network, setError })
     }
 
+    async function connectWallet() {
+        if (typeof window.ethereum !== 'undefined') {
+            await requestAccount()
+        }
+    }
+
     return (
         <Container className="center-container">
-            <Button variant="primary" onClick={requestAccount}>
+            <Button variant="primary" onClick={connectWallet}>
                 Connect Wallet
             </Button>
             <span>{walletDetected}</span>

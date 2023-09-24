@@ -15,5 +15,6 @@ export const appSlice = createSlice({
 })
 
 export const { passAddress } = appSlice.actions
+export const selectAddress = (state) => state.app.address
 
 export default appSlice.reducer
