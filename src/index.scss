@@ -3,3 +3,12 @@
     margin: 0;
     padding: 0;
 }
+
+.center-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 94vh;
+    flex-direction: column;
+    gap: 10px;
+}
